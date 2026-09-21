@@ -1,0 +1,63 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;450;500&display=swap"
+    />
+
+    {/*
+      is:inline = Astro NO lo toca: lo deja tal cual en el HTML.
+      Tiene que correr ANTES de que el navegador pinte, por dos razones:
+        1. .js esconde los elementos del scroll-reveal. Si llegara tarde,
+           se verían un instante y luego desaparecerían.
+        2. data-theme evita el flashazo blanco al cargar en tema oscuro.
+    */}
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        try {
+          var t = localStorage.getItem('theme');
+          if (t === 'dark' || t === 'light') root.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+
+  <body>
+    <slot />
+
+    <script>
+      // Este <script> SIN is:inline sí lo procesa Astro: resuelve los imports,
+      // compila el TypeScript y lo manda al navegador como un módulo.
+      import { initInks, initTheme, initBarShadow } from '../scripts/theme';
+      import { initReveal } from '../scripts/reveal';
+
+      initInks();
+      initTheme();
+      initBarShadow();
+      initReveal();
+    </script>
+  </body>
+</html>

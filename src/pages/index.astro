@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import TopBar from '../components/TopBar.astro';
+import Hero from '../components/Hero.astro';
+import Stack from '../components/Stack.astro';
+import Proyectos from '../components/Proyectos.astro';
+import Experiencia from '../components/Experiencia.astro';
+import Contacto from '../components/Contacto.astro';
+---
+
+<Base
+  title="Guillermo — Fullstack jr"
+  description="Portafolio de Guillermo: interfaces en Vue 3 y servicios en Go, Python y .NET."
+>
+  <TopBar />
+
+  <main class="doc">
+    <Hero />
+    <Stack />
+    <Proyectos />
+    <Experiencia />
+    <Contacto />
+  </main>
+</Base>

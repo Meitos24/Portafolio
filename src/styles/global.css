@@ -1,0 +1,240 @@
+/* ============================================================
+   Tokens + primitivas compartidas.
+   Todo lo que usen DOS o más componentes vive aquí.
+   Lo que solo usa un componente va en su <style> scopeado.
+   ============================================================ */
+
+:root {
+  /* la tinta de acento: un par (claro / oscuro) por cada hue */
+  --ink-l: #2f43d2;
+  --ink-d: #9aa8ff;
+  --accent: var(--ink-l);
+
+  --bg: #fbfbfc;
+  --bg-2: #f2f3f7;
+  --fg: #14161d;
+  --fg-2: #565c6b;
+  --fg-3: #8b92a3;
+  --rule: #e3e5ec;
+  --rule-2: #cfd3de;
+  --sel: color-mix(in srgb, var(--accent) 16%, transparent);
+
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --gut: 3.2ch;        /* ancho del gutter de números de línea */
+  --measure: 72ch;     /* medida de lectura del bloque de código */
+  --bar-h: 46px;
+  --ease: cubic-bezier(.22, .68, .32, 1);
+}
+
+/* Tema oscuro por preferencia del sistema.
+   El :not([data-theme="light"]) hace que una elección explícita del usuario gane. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --accent: var(--ink-d);
+    --bg: #0e1015;  --bg-2: #171a22;
+    --fg: #e7e9ef;  --fg-2: #a2a9ba; --fg-3: #6d7486;
+    --rule: #242835; --rule-2: #343a4b;
+  }
+}
+
+/* Tema oscuro por elección explícita (el botón). */
+:root[data-theme="dark"] {
+  --accent: var(--ink-d);
+  --bg: #0e1015;  --bg-2: #171a22;
+  --fg: #e7e9ef;  --fg-2: #a2a9ba; --fg-3: #6d7486;
+  --rule: #242835; --rule-2: #343a4b;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--sel); }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+}
+a:hover { border-bottom-color: var(--accent); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img { max-width: 100%; }
+
+/* ── envoltura ───────────────────────────────────────────── */
+.doc {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-inline: 20px;
+  padding-block: 0 96px;
+}
+
+/* ── bloque "código": gutter de números de línea ──────────
+   Los números los pone CSS con un counter. Cero JavaScript.     */
+.code {
+  max-width: calc(var(--measure) + var(--gut) + 4ch);
+  counter-reset: line;
+}
+.ln {
+  display: grid;
+  grid-template-columns: var(--gut) 1fr;
+  column-gap: 2.2ch;
+  align-items: start;
+}
+.ln::before {
+  counter-increment: line;
+  content: counter(line);
+  color: var(--fg-3);
+  opacity: .45;
+  font-size: 12px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  line-height: inherit;
+  user-select: none;
+}
+.blank { min-height: 1.1rem; }
+
+/* ── tema de sintaxis de UN SOLO tono ──────────────────────
+   El acento se gasta solo en strings y links. Nada más.        */
+.com { color: var(--fg-3); font-style: italic; }
+.kw  { color: var(--fg); font-weight: 600; }
+.str { color: var(--accent); }
+.pun { color: var(--fg-3); }
+
+/* ── tipografía compartida ─────────────────────────────────── */
+h3 {
+  font-size: clamp(17px, 3vw, 20px);
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -.02em;
+}
+p.prose {
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.62;
+  color: var(--fg-2);
+  margin: 0;
+  max-width: 62ch;
+}
+p.prose em { color: var(--fg); font-style: normal; font-weight: 450; }
+
+/* ── secciones ─────────────────────────────────────────────── */
+.sec {
+  padding-block: clamp(64px, 12vh, 112px);
+  border-top: 1px solid var(--rule);
+}
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  max-width: calc(var(--measure) + var(--gut) + 4ch);
+}
+.sec-head h2 {
+  font-size: clamp(21px, 4vw, 30px);
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -.028em;
+}
+.sec-head .n {
+  color: var(--accent);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.sec-head .rest {
+  color: var(--fg-3);
+  font-size: 12px;
+  letter-spacing: .04em;
+  margin-left: auto;
+}
+
+/* ── listas clave / valor ──────────────────────────────────── */
+.kv {
+  display: grid;
+  grid-template-columns: 14ch 1fr;
+  column-gap: 2ch;
+  row-gap: 3px;
+}
+.kv dt { color: var(--fg-3); font-size: 13.5px; }
+.kv dd { margin: 0; font-size: 13.5px; }
+
+/* ── punto de estado ───────────────────────────────────────── */
+.stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--fg-2);
+}
+.dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+.dot.off { background: var(--fg-3); }
+
+/* ── aparición difuminada al hacer scroll ──────────────────
+   OJO al orden: .rev arranca VISIBLE. Solo se esconde cuando
+   el <html> tiene la clase .js, que pone un script inline antes
+   de que pinte. Si el JS falla, la página se ve completa.       */
+.rev { opacity: 1; }
+
+html.js .rev {
+  opacity: 0;
+  filter: blur(16px);
+  transform: translateY(26px);
+  transition:
+    opacity .9s var(--ease),
+    filter .9s var(--ease),
+    transform .9s var(--ease);
+  will-change: opacity, filter, transform;
+}
+html.js .rev.in {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  html.js .rev,
+  html.js .rev.in {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── teléfono: se cae el gutter, las columnas se apilan ────── */
+@media (max-width: 560px) {
+  :root { --gut: 0px; }
+  .ln { grid-template-columns: 1fr; column-gap: 0; }
+  .ln::before { display: none; }
+  .kv { grid-template-columns: 1fr; row-gap: 0; }
+  .kv dd { margin-bottom: 10px; }
+  .sec-head .rest { margin-left: 0; width: 100%; }
+}

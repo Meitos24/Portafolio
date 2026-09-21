@@ -1,0 +1,64 @@
+---
+
+/**
+ * OJO con las llaves: en una plantilla .astro, { y } abren una expresión JS.
+ * Para que se vean como texto hay que escribirlas como &#123; y &#125;.
+ */
+const enlaces = [
+  {
+    clave: "email",
+    texto: "gigics24@gmail.com",
+    href: "mailto:gigics24@gmail.com",
+  },
+  {
+    clave: "github",
+    texto: "github.com/Meitos24",
+    href: "https://github.com/Meitos24",
+  },
+  {
+    clave: "linkedin",
+    texto: "linkedin.com/in/guillermocampossalas/",
+    href: "https://www.linkedin.com/in/guillermocampossalas/",
+  },
+  { clave: "cv", texto: "/cv.pdf", href: "/cv.pdf", nuevaPestana: true },
+];
+---
+
+<section class="sec" data-reveal>
+  <div class="sec-head rev">
+    <span class="n">04</span>
+    <h2>Contacto</h2>
+  </div>
+
+  <div class="code">
+    <div class="ln rev">
+      <span class="kw">export default</span>
+      <span class="pun">&#123;</span>
+    </div>
+
+    {
+      enlaces.map((e, i) => (
+        <div class="ln rev">
+          <span class="sangria" />
+          {e.clave}
+          <span class="pun">:</span> 
+            <a href={e.href} target={e.nuevaPestana ? "_blank" : undefined} rel={e.nuevaPestana ? "noopener" : undefined}>"{e.texto}"</a>
+          {i < enlaces.length - 1 && <span class="pun">,</span>}
+        </div>
+      ))
+    }
+
+    <div class="ln rev"><span class="pun">&#125;;</span></div>
+    <div class="ln blank"></div>
+    <div class="ln rev">
+      <span class="com">// respondo en menos de 24 h</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sangria {
+    display: inline-block;
+    width: 2ch;
+  }
+</style>

@@ -1,0 +1,62 @@
+---
+import { proyectos } from '../data/proyectos';
+---
+
+<section class="sec" data-reveal>
+  <div class="sec-head rev">
+    <span class="n">02</span>
+    <h2>Proyectos</h2>
+    <span class="rest">{proyectos.length} seleccionados</span>
+  </div>
+
+  <div class="code">
+    {
+      proyectos.map((p) => (
+        <article class="proj rev">
+          <div class="ln"><h3>{p.titulo}</h3></div>
+          <div class="ln blank" />
+          {/* set:html porque la descripción trae <em> adentro */}
+          <div class="ln"><p class="prose" set:html={p.descripcion} /></div>
+          <div class="ln blank" />
+          <div class="ln">
+            <div class="meta">
+              {p.tags.map((t) => <span class="tag">{t}</span>)}
+            </div>
+          </div>
+          <div class="ln">
+            <span class="stat">
+              <span class={p.estado === 'activo' ? 'dot' : 'dot off'} />
+              {p.nota}
+            </span>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  /* separados por una línea punteada, no por cards con sombra:
+     cada borde que dibujas es una decisión que hay que justificar */
+  .proj {
+    padding-block: 22px;
+    border-top: 1px dashed var(--rule);
+  }
+  .proj:first-of-type { border-top: none; padding-top: 0; }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 8px;
+    font-size: 12px;
+    color: var(--fg-3);
+  }
+  .tag {
+    color: var(--fg-2);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 1px 7px;
+    background: var(--bg-2);
+    white-space: nowrap;
+  }
+</style>

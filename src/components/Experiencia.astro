@@ -1,0 +1,43 @@
+---
+const puestos = [
+  {
+    periodo: 'Enero 2026 — Agosto 2026',
+    empresa: 'Laudem Contago',
+    puesto: 'Frontend',
+    detalle: 'Interfaces en Vue 3 + Pinia, consumo de API desde .NET 8',
+  },
+  {
+    periodo: 'Agosto 2026 - presente',
+    empresa: 'Laudem Contago',
+    puesto: 'Fullstack',
+    detalle: 'Interfaces en React + Zod, backend implementado en .NET C# usando MongoDB',
+  },
+];
+---
+
+<section class="sec" data-reveal>
+  <div class="sec-head rev">
+    <span class="n">03</span>
+    <h2>Experiencia</h2>
+  </div>
+
+  <div class="code">
+    {
+      puestos.map((p) => (
+        <>
+          <div class="ln rev">
+            <dl class="kv">
+              <dt>{p.periodo}</dt>
+              <dd>
+                <b>{p.empresa}</b> <span class="com">— {p.puesto}</span>
+                <br />
+                <span class="com">{p.detalle}</span>
+              </dd>
+            </dl>
+          </div>
+          <div class="ln blank" />
+        </>
+      ))
+    }
+  </div>
+</section>

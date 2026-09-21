@@ -1,0 +1,40 @@
+---
+const filas = [
+  { rol: "Frontend", valor: "React, TypeScript, TanStack Query, Zod." },
+  {
+    rol: "Backend",
+    valor:
+      "REST API en .NET 8, arquitectura multi-tenant, diseño por capas (controllers → services.",
+  },
+  { rol: "Datos", valor: "MongoDB · MySQL (PDO)." },
+];
+---
+
+<section class="sec" data-reveal>
+  <div class="sec-head rev">
+    <span class="n">01</span>
+    <h2>Stack</h2>
+    <span class="rest">lo que uso a diario</span>
+  </div>
+
+  <div class="code">
+    <div class="ln rev">
+      <dl class="kv">
+        {
+          filas.map((f) => (
+            <>
+              <dt>{f.rol}</dt>
+              <dd>{f.valor}</dd>
+            </>
+          ))
+        }
+        <dt>Innfra</dt>
+        <dd>
+          Git · GitHub Actions · Namecheap · AWS <span class="com"
+            >(en curso)</span
+          >
+        </dd>
+      </dl>
+    </div>
+  </div>
+</section>
