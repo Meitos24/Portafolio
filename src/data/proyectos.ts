@@ -16,14 +16,6 @@ export interface Proyecto {
 
 export const proyectos: Proyecto[] = [
   {
-    titulo: 'API de Nómina + CFDI 4.0',
-    descripcion:
-      'Construí el timbrado de nómina de punta a punta: armado del CFDI, validación de las reglas del SAT y envío al PAC, sobre una arquitectura multi-tenant que corre para más de 20 empresas. Front en React + Zod, API en .NET 8 y MongoDB.',
-    tags: ['.NET 8', 'MongoDB', 'multi-tenant', 'CFDI 4.0'],
-    nota: 'en desarrollo · repositorio privado',
-    estado: 'activo',
-  },
-  {
     titulo: 'Kiosko Vertical',
     descripcion:
       'Check-in de visitantes por <em>reconocimiento facial y de voz</em> para fraccionamientos. Trabajé el backend: los servicios de captura y el pipeline de verificación. <em>2.º lugar</em> en FEPRO 2026.',
