@@ -1,0 +1,17 @@
+name: CI
+on: push
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4     # trae mi código
+      - uses: pnpm/action-setup@v4    # instala pnpm
+        with:
+          version: 11.3.0
+      - uses: actions/setup-node@v4   # instala Node
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile      
+      - run: pnpm astro check      
+      - run: pnpm astro build     
