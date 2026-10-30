@@ -21,7 +21,7 @@ export const proyectos: Proyecto[] = [
       'Check-in de visitantes por <em>reconocimiento facial y de voz</em> para fraccionamientos. Trabajé el backend: los servicios de captura y el pipeline de verificación. <em>2.º lugar</em> en FEPRO 2026.',
     tags: ['Go', 'Python', 'visión por computadora'],
     nota: 'backend · equipo de 6 · repositorio privado',
-    estado: 'archivado',
+    estado: 'activo',
   },
   {
     titulo: 'Caserio',
