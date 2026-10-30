@@ -4,11 +4,11 @@ jobs:
   revisar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4     # trae mi código
-      - uses: pnpm/action-setup@v4    # instala pnpm
+      - uses: actions/checkout@v7     # trae mi código
+      - uses: pnpm/action-setup@v6    # instala pnpm
         with:
           version: 11.3.0
-      - uses: actions/setup-node@v4   # instala Node
+      - uses: actions/setup-node@v7   # instala Node
         with:
           node-version: 22
           cache: pnpm
