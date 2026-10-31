@@ -1,46 +1,43 @@
-# Astro Starter Kit: Basics
+# Portafolio
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Mi portafolio personal, publicado en [guillermo-dev.vercel.app](https://guillermo-dev.vercel.app/). Está diseñado como un archivo fuente: números de línea, secciones como comentarios y una sola tinta de acento.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Stack
 
-## 🚀 Project Structure
+- [Astro](https://astro.build) con TypeScript
+- Vitest para los tests
+- GitHub Actions para CI
+- Vercel para el deploy
 
-Inside of your Astro project, you'll see the following folders and files:
+## Comandos
+
+Requiere Node 22.12 o superior y pnpm.
+
+| Comando | Qué hace |
+| :-------------- | :-------------------------------------------- |
+| `pnpm install` | Instala las dependencias |
+| `pnpm dev` | Levanta el sitio en `localhost:4321` |
+| `pnpm check` | Revisa los tipos con `astro check` |
+| `pnpm test` | Corre los tests una vez |
+| `pnpm build` | Genera el sitio en `dist/` |
+| `pnpm preview` | Sirve el build en local |
+
+## Estructura
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+├── components/   secciones de la página
+├── data/         contenido y sus funciones, con sus tests
+└── scripts/      tema, tinta de acento y animación de scroll
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Para agregar un proyecto, se añade un objeto al array de `src/data/proyectos.ts`. No hace falta tocar la plantilla.
 
-## 🧞 Commands
+## Flujo de cambios
 
-All commands are run from the root of the project, from a terminal:
+`main` está protegida: nadie puede hacer push directo y todo entra por un Pull Request.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+1. El cambio se sube a una rama y se abre un PR.
+2. El job `revisar` corre `pnpm check`, `pnpm test` y el build. Si alguno falla, el merge queda bloqueado.
+3. Vercel genera un Preview para revisar cómo se ve el cambio.
+4. Al hacer merge a `main`, Vercel publica en producción.
