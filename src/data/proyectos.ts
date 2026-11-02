@@ -12,6 +12,8 @@ export interface Proyecto {
   tags: string[];
   nota: string;
   estado: Estado;
+  /** Sitio en producción. Sin url, no se pinta el link. */
+  url?: string;
 }
 
 export const proyectos: Proyecto[] = [
@@ -30,6 +32,7 @@ export const proyectos: Proyecto[] = [
     tags: ['monorepo', 'Next.js', 'CI/CD'],
     nota: 'admin en producción · landing en producción',
     estado: 'activo',
+    url: 'https://caserioinmobiliariaboutique.erikaax.dev/',
   },
   // {
   //   titulo: 'Reservas para estudio fotográfico',

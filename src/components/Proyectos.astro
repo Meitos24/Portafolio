@@ -30,6 +30,11 @@ import { etiquetaSeleccionados } from '../data/conteo';
               {p.nota}
             </span>
           </div>
+          {p.url && (
+            <div class="ln">
+              <a href={p.url} target="_blank" rel="noopener">"ver sitio"</a>
+            </div>
+          )}
         </article>
       ))
     }
